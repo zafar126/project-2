@@ -1,35 +1,48 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react'
+import { Routes, Route, Link, useNavigate } from 'react-router-dom'
+import Home from './components/Home.jsx'
+import Login from './components/Login.jsx'
+import Register from './components/Register.jsx'
+import ScanReport from './components/ScanReport.jsx'
+import About from './components/About.jsx'
+import Testimonials from './components/Testimonials.jsx'
+import Doctors from './components/Doctors.jsx'
+import Footer from './components/Footer.jsx'
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App(){
+  const [lng, setLng] = useState(localStorage.getItem('lng') || 'en')
+  const navigate = useNavigate()
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div>
+      <nav className="container" style={{display:'flex', alignItems:'center', justifyContent:'space-between'}}>
+        <div style={{display:'flex', gap:16, alignItems:'center'}}>
+          <Link to="/" style={{fontWeight:800, letterSpacing:1}}>🩺 HealthCare</Link>
+          <Link to="/doctors">Doctors</Link>
+          <Link to="/about">About</Link>
+          <Link to="/testimonials">Testimonials</Link>
+        </div>
+        <div style={{display:'flex', gap:10, alignItems:'center'}}>
+          <select value={lng} onChange={(e)=>{setLng(e.target.value); localStorage.setItem('lng', e.target.value); location.reload();}}>
+            <option value="en">English</option>
+            <option value="hi">Hindi</option>
+            <option value="ur">Urdu</option>
+          </select>
+          <button className="button" onClick={()=>navigate('/login')}>Login</button>
+        </div>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/scan" element={<ScanReport />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/testimonials" element={<Testimonials />} />
+        <Route path="/doctors" element={<Doctors />} />
+      </Routes>
+
+      <Footer />
+    </div>
   )
 }
-
-export default App
