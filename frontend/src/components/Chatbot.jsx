@@ -1,52 +1,107 @@
-import React, { useEffect, useRef, useState } from 'react'
-import axios from 'axios'
+import React, { useEffect, useRef, useState } from "react";
+import axios from "axios";
 
-export default function Chatbot(){
-  const [open, setOpen] = useState(true)
-  const [input, setInput] = useState("")
-  const [msgs, setMsgs] = useState([])
-  const user = JSON.parse(localStorage.getItem('user') || 'null')
-  const listRef = useRef(null)
+const API_URL = import.meta.env.VITE_API_URL;
 
-  useEffect(()=>{
-    if(user){
-      axios.get(`http://localhost:5000/api/chat/history/${user.id}`).then(({data})=>setMsgs(data))
+export default function Chatbot({ onClose }) {
+  const [input, setInput] = useState("");
+  const [msgs, setMsgs] = useState([]);
+  const user = JSON.parse(localStorage.getItem("user") || "null");
+  const listRef = useRef(null);
+
+  // Load old messages
+  useEffect(() => {
+    if (user) {
+      axios
+        .get(`${API_URL}/api/chat/history/${user.id}`)
+        .then(({ data }) => setMsgs(data))
+        .catch(() => setMsgs([]));
     }
-  }, [])
+  }, []);
 
-  useEffect(()=>{
-    if(listRef.current) listRef.current.scrollTop = listRef.current.scrollHeight
-  }, [msgs])
+  // Auto scroll
+  useEffect(() => {
+    if (listRef.current)
+      listRef.current.scrollTop = listRef.current.scrollHeight;
+  }, [msgs]);
 
   const send = async () => {
-    if(!input.trim()) return
-    const { data } = await axios.post('http://localhost:5000/api/chat/send', { userId: user?.id || 'guest', message: input })
-    setMsgs(m => [...m, { message: input, reply: data.reply, createdAt: data.createdAt }])
-    setInput("")
-  }
+    if (!input.trim()) return;
+    const message = input;
+    setMsgs((m) => [...m, { message, reply: "..." }]);
+    setInput("");
+
+    try {
+      const { data } = await axios.post(`${API_URL}/api/chat/send`, {
+        userId: user?.id || "guest",
+        message,
+      });
+      setMsgs((m) => {
+        const newMsgs = [...m];
+        newMsgs[newMsgs.length - 1].reply = data.reply || "No reply";
+        return newMsgs;
+      });
+    } catch (e) {
+      setMsgs((m) => {
+        const newMsgs = [...m];
+        newMsgs[newMsgs.length - 1].reply = "⚠️ Error! Try again.";
+        return newMsgs;
+      });
+    }
+  };
 
   return (
-    <div className="card" style={{height:'100%', display:'flex', flexDirection:'column'}}>
-      <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+    <div className="bg-white w-full sm:w-96 h-[80vh] sm:h-[85vh] flex flex-col rounded-t-xl sm:rounded-xl shadow-xl overflow-hidden">
+      {/* Header */}
+      <div className="flex justify-between items-center bg-blue-600 text-white px-4 py-2">
         <b>Assistant</b>
-        <button className="badge" onClick={()=>setOpen(o=>!o)}>{open? "−" : "+"}</button>
+        <button
+          className="text-xl font-bold hover:text-gray-200"
+          onClick={onClose}
+        >
+          ×
+        </button>
       </div>
-      {open && (
-        <>
-          <div ref={listRef} style={{flex:1, overflowY:'auto', marginTop:8, paddingRight:4}}>
-            {msgs.map((m, i)=>(
-              <div key={i} style={{marginBottom:10}}>
-                <div><span className="badge">You</span> {m.message}</div>
-                <div style={{marginTop:6}}><span className="badge">Bot</span> {m.reply}</div>
+
+      {/* Messages */}
+      <div
+        ref={listRef}
+        className="flex-1 overflow-y-auto p-3 space-y-3 bg-gray-50"
+      >
+        {msgs.map((m, i) => (
+          <div key={i} className="flex flex-col gap-1">
+            {/* User Message (Right) */}
+            {m.message && (
+              <div className="self-end bg-blue-600 text-white px-3 py-2 rounded-2xl max-w-[75%] break-words shadow">
+                {m.message}
               </div>
-            ))}
+            )}
+            {/* Bot Reply (Left) */}
+            {m.reply && (
+              <div className="self-start bg-gray-200 text-gray-900 px-3 py-2 rounded-2xl max-w-[75%] break-words shadow">
+                {m.reply}
+              </div>
+            )}
           </div>
-          <div style={{display:'flex', gap:8, marginTop:8}}>
-            <input value={input} onChange={e=>setInput(e.target.value)} placeholder="Ask about diet, sleep, doctors…" />
-            <button className="button" onClick={send}>Send</button>
-          </div>
-        </>
-      )}
+        ))}
+      </div>
+
+      {/* Input */}
+      <div className="flex p-2 border-t gap-2">
+        <input
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          placeholder="Type a message..."
+          className="flex-1 border rounded-lg px-3 py-2 focus:outline-none focus:ring focus:ring-blue-300"
+          onKeyDown={(e) => e.key === "Enter" && send()}
+        />
+        <button
+          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg"
+          onClick={send}
+        >
+          Send
+        </button>
+      </div>
     </div>
-  )
+  );
 }

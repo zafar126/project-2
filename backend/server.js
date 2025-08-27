@@ -16,7 +16,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-app.get("/", (req, res) => res.send({ ok: true, service: "project-2 backend" }));
+app.get("/", (req, res) => res.send({ ok: true, service: "Medical Report Analyzer Backend" }));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/scan", scanRoutes);

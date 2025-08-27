@@ -1,1 +1,35 @@
-[]
+[
+  {
+    "id": "1756306165145",
+    "userId": "guest",
+    "file": "1756306160220-ChatGPT Image Aug 24, 2025, 12_23_20 AM.png",
+    "text": "2 \\\n§ZIP\n",
+    "results": [
+      {
+        "key": "general",
+        "name": "General Wellness",
+        "percent": 10,
+        "risks": [
+          "No major risk detected from text"
+        ],
+        "diet": {
+          "eat": [
+            "Fruits",
+            "Leafy vegetables",
+            "Whole grains"
+          ],
+          "avoid": [
+            "Excess sugar",
+            "Ultra-processed foods"
+          ]
+        },
+        "sleep": "7–8 hours",
+        "lifestyle": [
+          "Regular activity",
+          "Hydration"
+        ]
+      }
+    ],
+    "createdAt": "2025-08-27T14:49:25.145Z"
+  }
+]

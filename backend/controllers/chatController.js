@@ -20,10 +20,10 @@ function botReply(message) {
   }
 
   if (m.includes("hello") || m.includes("hi")) return "Hello! How can I help with your report, diet, or sleep today?";
-  if (m.includes("doctor")) return "You can consult: Dentist (teeth), Cardiologist (heart), Dermatologist (skin), Neurologist (brain), Nutritionist (diet). Tell me your symptom to suggest a specialist.";
-  if (m.includes("diet")) return "General diet: fruits, leafy greens, whole grains, adequate water; avoid excess sugar and ultra-processed foods.";
+  if (m.includes("doctor")) return "Consult: Dentist (teeth), Cardiologist (heart), Dermatologist (skin), Neurologist (brain), Nutritionist (diet).";
+  if (m.includes("diet")) return "General diet: fruits, leafy greens, whole grains, adequate water; avoid excess sugar.";
 
-  return "I'm here to help with reports, diet, sleep, and specialists. Share your symptom or paste report text.";
+  return "Share your symptom or paste report text to get advice.";
 }
 
 export const sendMessage = (req, res) => {
