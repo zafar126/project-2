@@ -5,15 +5,15 @@ import bodyParser from "body-parser";
 import path from "path";
 import { fileURLToPath } from "url";
 
-
+import dotenv from "dotenv";
 import connectDB from "./db.js";
 import authRoutes from "./routes/authRoutes.js";
 import scanRoutes from "./routes/scanRoutes.js";
 import chatRoutes from "./routes/chatRoutes.js";
-import dotenv from "dotenv";
-import connectDB from "./db.js";
 
 dotenv.config();
+
+// Connect MongoDB
 connectDB();
 
 // dirname setup for ES Modules
@@ -26,9 +26,6 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-
-// Connect MongoDB Atlas
-connectDB();
 
 // Routes
 app.get("/", (req, res) =>
@@ -45,7 +42,7 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: "Internal Server Error" });
 });
 
-// Start Server
+// Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () =>
   console.log(`✅ Backend running at http://localhost:${PORT}`)

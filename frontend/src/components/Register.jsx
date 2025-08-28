@@ -1,29 +1,38 @@
-import React, { useState } from "react"
-import { useNavigate, Link } from "react-router-dom"
-import axios from "axios"
+// src/components/Register.jsx
+import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function Register() {
-  const [name, setName] = useState("")
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [error, setError] = useState("")
-  const nav = useNavigate()
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const nav = useNavigate();
 
   const submit = async () => {
     try {
-      const { data } = await axios.post("http://localhost:5000/api/auth/register", { name, email, password })
-      localStorage.setItem("token", data.token)
-      localStorage.setItem("user", JSON.stringify(data.user))
-      nav("/")
+      const { data } = await axios.post(`${API_URL}/api/auth/register`, {
+        name,
+        email,
+        password,
+      });
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+      nav("/");
     } catch (e) {
-      setError(e.response?.data?.error || "Register failed")
+      setError(e.response?.data?.error || "Register failed");
     }
-  }
+  };
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-50 px-4">
       <div className="w-full max-w-md bg-white p-6 rounded-2xl shadow-md">
-        <h2 className="text-2xl font-bold text-center text-gray-800">Create Account</h2>
+        <h2 className="text-2xl font-bold text-center text-gray-800">
+          Create Account
+        </h2>
 
         <div className="mt-4">
           <label className="block text-gray-600 text-sm mb-1">Name</label>
@@ -76,5 +85,5 @@ export default function Register() {
         </p>
       </div>
     </div>
-  )
+  );
 }

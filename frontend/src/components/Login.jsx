@@ -1,28 +1,36 @@
-import React, { useState } from "react"
-import { useNavigate, Link } from "react-router-dom"
-import axios from "axios"
+// src/components/Login.jsx
+import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
+
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function Login() {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [error, setError] = useState("")
-  const nav = useNavigate()
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const nav = useNavigate();
 
   const submit = async () => {
     try {
-      const { data } = await axios.post("http://localhost:5000/api/auth/login", { email, password })
-      localStorage.setItem("token", data.token)
-      localStorage.setItem("user", JSON.stringify(data.user))
-      nav("/")
+      const { data } = await axios.post(`${API_URL}/api/auth/login`, {
+        email,
+        password,
+      });
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+      nav("/");
     } catch (e) {
-      setError(e.response?.data?.error || "Login failed")
+      setError(e.response?.data?.error || "Login failed");
     }
-  }
+  };
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-50 px-4">
       <div className="w-full max-w-sm bg-white p-6 rounded-2xl shadow-md">
-        <h2 className="text-2xl font-bold text-center text-gray-800">Welcome Back</h2>
+        <h2 className="text-2xl font-bold text-center text-gray-800">
+          Welcome Back
+        </h2>
 
         <div className="mt-4">
           <label className="block text-gray-600 text-sm mb-1">Email</label>
@@ -65,5 +73,5 @@ export default function Login() {
         </p>
       </div>
     </div>
-  )
+  );
 }
