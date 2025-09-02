@@ -1,12 +1,45 @@
-# React + Vite
+# 🌿 HealthMate - AI Powered Natural Healthcare Assistant
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 📌 Overview
+**HealthMate** is a Healthcare Web Application where patients can:  
+- Scan their reports to analyze disease risks 🩺  
+- Detect vitamin/mineral deficiencies 🍎  
+- Get food & lifestyle recommendations 🥗  
+- Interact with an AI-powered chatbot 🤖  
+- Connect with doctors online 👨‍⚕️  
+- Give feedback and ratings ⭐  
 
-Currently, two official plugins are available:
+⚡ Special: This app highlights **medicine side effects** and suggests **natural remedies (vegetables/fruits)** as alternatives.  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
+- **Frontend:** React + Tailwind CSS  
+- **Backend:** Node.js + Express  
+- **Database:** MongoDB (Atlas / Local)  
+- **Other Tools:**  
+  - OCR for report scanning  
+  - AI/ML (future scope) for disease & skin detection  
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🚀 Features
+✅ Report upload & scan (PDF/Image → analysis)  
+✅ AI-powered chatbot (Hero section)  
+✅ Disease risk prediction (basic)  
+✅ Vitamin deficiency detection  
+✅ Natural food & lifestyle recommendations  
+✅ Medicine side effects awareness  
+✅ Doctor connect (video/chat option)  
+✅ Skin problem detection (future scope)  
+✅ Multilanguage support (English/Hindi + others)  
+✅ Feedback & rating system  
+
+---
+
+## ▶️ How to Run Locally
+
+### 1. Clone Repo
+```bash
+git clone https://github.com/zafar126/project-2.git
+cd project-2
