@@ -5,7 +5,7 @@ import { getDailyTip, getUserReports } from '../services/api.js';
 
 export default function Dashboard() {
   const [user, setUser] = useState(null);
-  const [reports, setReports] = useState([]);
+   const [reports, setReports] = useState([]);
   const [dailyTip, setDailyTip] = useState("");
   const navigate = useNavigate();
 
