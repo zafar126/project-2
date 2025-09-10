@@ -38,9 +38,7 @@ export default function Home() {
     {
       icon: <FileScan size={32} />,
       title: t("Scan Reports"),
-      description: t(
-        "Upload and get detailed analysis of your medical documents."
-      ),
+      description: t("Upload and get detailed analysis of your medical documents."),
       link: "/scan",
     },
     {
@@ -89,51 +87,41 @@ export default function Home() {
               color: { value: ["#a78bfa", "#22d3ee", "#60a5fa"] },
               links: { enable: true, distance: 120, opacity: 0.2 },
               move: { enable: true, speed: 1.2 },
-              opacity: {
-                value: 0.6,
-                anim: { enable: true, speed: 1, minimumValue: 0.2 },
-              },
+              opacity: { value: 0.6, anim: { enable: true, speed: 1, minimumValue: 0.2 } },
               size: { value: { min: 1, max: 3 } },
             },
-            interactivity: {
-              events: { onHover: { enable: true, mode: "repulse" } },
-              modes: { repulse: { distance: 100 } },
-            },
+            interactivity: { events: { onHover: { enable: true, mode: "repulse" } }, modes: { repulse: { distance: 100 } } },
           }}
         />
       </div>
 
       {/* Main Content */}
       <div className="relative z-10 max-w-6xl w-full bg-black/50 backdrop-blur-sm rounded-3xl shadow-2xl p-8 md:p-12 text-center my-8">
-        <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-4 animate-fade-in-down">
+        <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-4">
           {t("Your Personal Healthcare Assistant")}
         </h1>
-        <p className="text-lg md:text-xl font-light mb-8 max-w-3xl mx-auto animate-fade-in-up">
-          {t(
-            "Scan reports, get disease risk percentages, personalized diet plans, sleep & lifestyle tips. "
-          )}
-          <span className="font-semibold text-red-300">
-            {t("No medicine suggestions.")}
-          </span>
+        <p className="text-lg md:text-xl font-light mb-8 max-w-3xl mx-auto">
+          {t("Scan reports, get disease risk percentages, personalized diet plans, sleep & lifestyle tips. ")}
+          <span className="font-semibold text-red-300">{t("No medicine suggestions.")}</span>
         </p>
 
         {/* CTA Buttons */}
         <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6">
           <button
             onClick={handleCtaClick}
-            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full text-xl shadow-lg transition duration-300 transform hover:scale-105 animate-bounce-in"
+            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full text-xl shadow-lg"
           >
             {isLoggedIn ? t("Go to Dashboard") : t("Get Started Now")}
           </button>
           <button
             onClick={() => navigate("/donate")}
-            className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full text-xl shadow-lg transition duration-300 transform hover:scale-105"
+            className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full text-xl shadow-lg"
           >
             {t("Donate & Help")}
           </button>
           <button
             onClick={() => setShowChat(true)}
-            className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full text-xl shadow-lg transition duration-300 transform hover:scale-105"
+            className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full text-xl shadow-lg"
           >
             {t("Open Chatbot")}
           </button>
